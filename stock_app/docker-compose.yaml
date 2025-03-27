@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: sh -c "uvicorn main:app --host 0.0.0.0 --port 5011 --reload"
+    ports:
+      - "5011:5011"
+    environment:
+      DATABASE_URL: "postgresql://postgres:khush952004@db:5432/stock_details"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    container_name: stock_app_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: khush952004
+      POSTGRES_DB: stock_details
+    ports:
+      - "5432:5432"  # Use this unless you specifically need port 2004
+   
